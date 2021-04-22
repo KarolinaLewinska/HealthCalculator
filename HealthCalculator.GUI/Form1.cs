@@ -41,16 +41,21 @@ namespace HealthCalculator.GUI
 
                 if (radioButtonFemale.Checked)
                 {
-                    labelResultBMR.Text = cal.countBMRWoman(age,height,weight).ToString();
+                    labelResultBMR.Text = cal.countBMRWoman(age, height, weight).ToString();
                 }
                 else
                 {
                     labelResultBMR.Text = cal.countBMRMan(age, height, weight).ToString();
                 }
+
+                if (textBoxAge.Text.Length == 0)
+                {
+                    throw new FormatException("Źleeeee"); //poprawić, bo nie działa na pusty trxtBox lub wpisane nieprawidłowe znaki
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error: ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

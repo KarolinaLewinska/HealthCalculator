@@ -12,7 +12,7 @@ namespace HealthCalculator
         public double countBMI(double height, double weight)
         {
             if (height <= 0 || weight <= 0)
-                throw new ArgumentException("Your height or weight has invalid value!");
+                throw new ArgumentException("Invalid value!");
             double BMI = Math.Floor(weight / Math.Pow((height / 100), 2) * 100.0) / 100.0;
             return BMI;
         }
@@ -42,14 +42,14 @@ namespace HealthCalculator
         public double countBMRWoman(int age, double height, double weight)
         {
             if (height <= 0 || weight <= 0 || age <= 0)
-                throw new ArgumentException("Your height, weight or age has invalid value!");
+                throw new ArgumentException("Invalid value!");
             double BMR = Math.Floor(((9.99 * weight) + (6.25 * height) - (4.92 * age) - 161) * 100.0) / 100.0;
             return BMR;
         }
         public double countBMRMan(int age, double height, double weight)
         {
             if (height <= 0 || weight <= 0 || age <= 0)
-                throw new ArgumentException("Your height, weight or age has invalid value!");
+                throw new ArgumentException("Invalid value!");
             double BMR = Math.Floor(((9.99 * weight) + (6.25 * height) - (4.92 * age) + 5) * 100.0) / 100.0;
             return BMR;
         }
