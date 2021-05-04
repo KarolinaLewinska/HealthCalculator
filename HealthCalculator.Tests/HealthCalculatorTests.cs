@@ -73,6 +73,31 @@ namespace HealthCalculator.Tests
                 Assert.That(ex.Message == "Invalid value! The weight you entered is too high!");
             }
 
+            [Test]
+            public void countBMI_HeightDoubleWeightDouble_Calculated()
+            {
+                double BMI = cal.countBMI(150.5, 50.5);
+                Assert.AreEqual(BMI, 22.29);
+            }
+            [Test]
+            public void countBMI_HeightIntWeightInt_Calculated()
+            {
+                double BMI = cal.countBMI(145, 55);
+                Assert.AreEqual(BMI, 26.15);
+            }
+            [Test]
+            public void countBMI_HeightIntWeightDouble_Calculated()
+            {
+                double BMI = cal.countBMI(150, 50.5);
+                Assert.AreEqual(BMI, 22.44);
+            }
+            [Test]
+            public void countBMI_HeightDoubleWeightInt_Calculated()
+            {
+                double BMI = cal.countBMI(150.5, 50);
+                Assert.AreEqual(BMI, 22.07);
+            }
+
             [TestCase(145, 55, "You're overweight! Take care of Your health!")]
             [TestCase(170, 60, "Congratulations! You're weight is proper!")]
             [TestCase(10, 60, "You have extreme obesity. Immediately contact with doctor!")]
@@ -84,8 +109,6 @@ namespace HealthCalculator.Tests
                 String BMITips = cal.showResultText(BMI);
                 Assert.AreEqual(BMITips, BMIResultText);
             }
-
-            //testy na różne inty i double
 
             [TestCase(23, 145, 55, 1181.54)]
             [TestCase(37, 170, 60, 1318.86)]
@@ -169,6 +192,39 @@ namespace HealthCalculator.Tests
                        cal.countBMRWoman(50, 120, 350);
                        cal.countBMRMan(50, 120, 350);
                    });
+            }
+
+            [Test]
+            public void countBMR_HeightDoubleWeightDouble_Calculated()
+            {
+                double BMRW = cal.countBMRWoman(23,150.5, 50.5);
+                Assert.AreEqual(BMRW, 1170.95);
+                double BMRM = cal.countBMRMan(23, 150.5, 50.5);
+                Assert.AreEqual(BMRM, 1336.95);
+            }
+            [Test]
+            public void countBMR_HeightIntWeightInt_Calculated()
+            {
+                double BMRW = cal.countBMRWoman(23, 145, 55);
+                Assert.AreEqual(BMRW, 1181.54);
+                double BMRM = cal.countBMRMan(23, 145, 55);
+                Assert.AreEqual(BMRM, 1347.54);
+            }
+            [Test]
+            public void countBMR_HeightIntWeightDouble_Calculated()
+            {
+                double BMRW = cal.countBMRWoman(23, 150, 50.5);
+                Assert.AreEqual(BMRW, 1167.83);
+                double BMRM = cal.countBMRMan(23, 150, 50.5);
+                Assert.AreEqual(BMRM, 1333.83);
+            }
+            [Test]
+            public void countBMR_HeightDoubleWeightInt_Calculated()
+            {
+                double BMRW = cal.countBMRWoman(23, 150.5, 50);
+                Assert.AreEqual(BMRW, 1165.96);
+                double BMRM = cal.countBMRMan(23, 150.5, 50);
+                Assert.AreEqual(BMRM, 1331.96);
             }
         }
     }
