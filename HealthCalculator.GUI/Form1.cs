@@ -48,9 +48,9 @@ namespace HealthCalculator.GUI
                     labelResultBMR.Text = cal.countBMRMan(age, height, weight).ToString();
                 }
 
-                if (textBoxAge.Text.Length == 0)
+                if (textBoxAge.Text=="")
                 {
-                    throw new FormatException("Źleeeee"); //poprawić, bo nie działa na pusty trxtBox lub wpisane nieprawidłowe znaki
+                    throw new FormatException("Źleeeee"); //poprawić, bo nie działa na pusty txtBox lub wpisane nieprawidłowe znaki
                 }
             }
             catch (Exception ex)
