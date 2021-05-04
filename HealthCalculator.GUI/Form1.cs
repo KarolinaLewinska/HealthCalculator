@@ -47,11 +47,10 @@ namespace HealthCalculator.GUI
                 {
                     labelResultBMR.Text = cal.countBMRMan(age, height, weight).ToString();
                 }
-
-                if (textBoxAge.Text=="")
-                {
-                    throw new FormatException("Źleeeee"); //poprawić, bo nie działa na pusty txtBox lub wpisane nieprawidłowe znaki
-                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Invalid value! No data has been entered or the data entered are not numbers!", "Error: ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {

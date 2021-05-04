@@ -8,8 +8,6 @@ namespace HealthCalculator
 {
     public class HealthCalculator
     {
-        //zrobić wyjątek na pusty ciąg i na wpisywanie liter
-
         public double countBMI(double height, double weight)
         {
             if (height <= 0)
