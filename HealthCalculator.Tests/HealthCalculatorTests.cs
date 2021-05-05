@@ -34,7 +34,7 @@ namespace HealthCalculator.Tests
             public void countBMI_DifferentValues_Calculated(double height, double weight, double BMIResult)
             {
                 double BMI = cal.countBMI(height, weight);
-                Assert.AreEqual(Math.Round(BMI, 2), BMIResult);
+                Assert.AreEqual(BMI, BMIResult);
             }
 
             [Test]
@@ -103,7 +103,7 @@ namespace HealthCalculator.Tests
             [TestCase(10, 60, "You have extreme obesity. Immediately contact with doctor!")]
             [TestCase(180, 55, "You're skinny! Contact with doctor!")]
             [TestCase(180, 100, "You have I class of obesity! Contact with doctor!")]
-            public void countBMI_DifferentTips_Calculated(double height, double weight, String BMIResultText)
+            public void countBMI_DifferentTips_Display(double height, double weight, String BMIResultText)
             {
                 double BMI = cal.countBMI(height, weight);
                 String BMITips = cal.showResultText(BMI);
