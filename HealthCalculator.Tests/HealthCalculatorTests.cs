@@ -20,12 +20,6 @@ namespace HealthCalculator.Tests
                 cal = new HealthCalculator();
             }
 
-            [OneTimeTearDown]
-            public void tearDown()
-            {
-                cal = null;
-            }
-
             [TestCase(145, 55, 26.15)]
             [TestCase(170, 60, 20.76)]
             [TestCase(120, 20, 13.88)]
@@ -42,6 +36,8 @@ namespace HealthCalculator.Tests
             {
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMI(0, 120));
+                    ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMI(-50, 120));
 
                 Assert.That(ex.Message == "Invalid value! Height must be greater than zero!");
             }
@@ -51,6 +47,8 @@ namespace HealthCalculator.Tests
             {
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMI(120, 0));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMI(120, -50));
 
                 Assert.That(ex.Message == "Invalid value! Weight must be greater than zero!");
             }
@@ -58,19 +56,21 @@ namespace HealthCalculator.Tests
             [Test]
             public void countBMI_HeightTooHigh_Exception()
             {
-                var ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMI(350, 120));
-
-                Assert.That(ex.Message == "Invalid value! The height you entered is too high!");
+                Assert.Throws(Is.TypeOf<ArgumentException>()
+                    .And.Message.EqualTo("Invalid value! The height you entered is too high!"),
+                    delegate {
+                        cal.countBMI(350, 120);
+                    });
             }
 
             [Test]
             public void countBMI_WeightTooHigh_Exception()
             {
-                var ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMI(120, 350));
-
-                Assert.That(ex.Message == "Invalid value! The weight you entered is too high!");
+                Assert.Throws(Is.TypeOf<ArgumentException>()
+                    .And.Message.EqualTo("Invalid value! The weight you entered is too high!"),
+                    delegate {
+                        cal.countBMI(120, 350);
+                    });
             }
 
             [Test]
@@ -99,6 +99,7 @@ namespace HealthCalculator.Tests
             }
 
             [TestCase(145, 55, "You're overweight! Take care of Your health!")]
+            [TestCase(170, 72.25, "You're overweight! Take care of Your health!")]
             [TestCase(170, 60, "Congratulations! You're weight is proper!")]
             [TestCase(10, 60, "You have extreme obesity. Immediately contact with doctor!")]
             [TestCase(180, 55, "You're skinny! Contact with doctor!")]
@@ -131,67 +132,80 @@ namespace HealthCalculator.Tests
             [Test]
             public void countBMR_AgetLessThanOrEqualZero_Exception()
             {
-                Assert.Throws(Is.TypeOf<ArgumentException>()
-                    .And.Message.EqualTo("Invalid value! Age must be greater than zero!"),
-                    delegate {
-                        cal.countBMRWoman(0, 120, 120);
-                        cal.countBMRMan(0, 120, 120);
-                    });
+                var ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRWoman(0, 120, 120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(0, 120, 120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(-50, 120, 120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(-50, 120, 120));
+
+                Assert.That(ex.Message == "Invalid value! Age must be greater than zero!");
+
             }
 
             [Test]
             public void countBMR_HeightLessThanOrEqualZero_Exception()
             {
-                Assert.Throws(Is.TypeOf<ArgumentException>()
-                    .And.Message.EqualTo("Invalid value! Height must be greater than zero!"),
-                    delegate {
-                        cal.countBMRWoman(20, 0, 120);
-                        cal.countBMRMan(20, 0, 120);
-                    });
+                var ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRWoman(20, 0, 120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(20, 0, 120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(20, -120, 120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(20, -120, 120));
+
+                Assert.That(ex.Message == "Invalid value! Height must be greater than zero!");
             }
 
             [Test]
             public void countBMR_WeightLessThanOrEqualZero_Exception()
             {
-                Assert.Throws(Is.TypeOf<ArgumentException>()
-                    .And.Message.EqualTo("Invalid value! Weight must be greater than zero!"),
-                    delegate {
-                        cal.countBMRWoman(20,120, 0);
-                        cal.countBMRMan(20, 120, 0);
-                    });
+                var ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRWoman(20, 120, 0));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(20, 120, 0));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(20, 120, -120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(20, 120, -120));
+
+                Assert.That(ex.Message == "Invalid value! Weight must be greater than zero!");
             }
 
             [Test]
             public void countBMR_AgeTooHigh_Exception()
             {
-                Assert.Throws(Is.TypeOf<ArgumentException>()
-                    .And.Message.EqualTo("Invalid value! The age you entered is too high!"),
-                    delegate {
-                        cal.countBMRWoman(150, 120, 120);
-                        cal.countBMRMan(150, 120, 120);
-                    });
+                var ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRWoman(150, 120, 120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(150, 120, 120));
+
+                Assert.That(ex.Message == "Invalid value! The age you entered is too high!");
             }
 
             [Test]
             public void countBMR_HeightTooHigh_Exception()
             {
-                Assert.Throws(Is.TypeOf<ArgumentException>()
-                   .And.Message.EqualTo("Invalid value! The height you entered is too high!"),
-                   delegate {
-                       cal.countBMRWoman(50, 350, 120);
-                       cal.countBMRMan(50, 350, 120);
-                   });
+                var ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRWoman(50, 350, 120));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(50, 350, 120));
+
+                Assert.That(ex.Message == "Invalid value! The height you entered is too high!");
             }
 
             [Test]
             public void countBMR_WeightTooHigh_Exception()
             {
-                Assert.Throws(Is.TypeOf<ArgumentException>()
-                   .And.Message.EqualTo("Invalid value! The weight you entered is too high!"),
-                   delegate {
-                       cal.countBMRWoman(50, 120, 350);
-                       cal.countBMRMan(50, 120, 350);
-                   });
+                var ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRWoman(50, 120, 350));
+                ex = Assert.Throws<ArgumentException>(
+                    () => cal.countBMRMan(50, 120, 350));
+
+                Assert.That(ex.Message == "Invalid value! The weight you entered is too high!");
             }
 
             [Test]
@@ -225,6 +239,12 @@ namespace HealthCalculator.Tests
                 Assert.AreEqual(BMRW, 1165.96);
                 double BMRM = cal.countBMRMan(23, 150.5, 50);
                 Assert.AreEqual(BMRM, 1331.96);
+            }
+
+            [OneTimeTearDown]
+            public void tearDown()
+            {
+                cal = null;
             }
         }
     }
