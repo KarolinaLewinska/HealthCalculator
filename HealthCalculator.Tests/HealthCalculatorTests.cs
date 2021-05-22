@@ -31,6 +31,14 @@ namespace HealthCalculator.Tests
                 Assert.AreEqual(BMI, BMIResult);
             }
 
+            [TestCase(300, 120, 13.33)]
+            [TestCase(150, 300, 133.33)]
+            public void countBMI_LimitValues_Calculated(double height, double weight, double BMIResult)
+            {
+                double BMI = cal.countBMI(height, weight);
+                Assert.AreEqual(BMI, BMIResult);
+            }
+
             [Test]
             public void countBMI_HeightLessThanOrEqualZero_Exception()
             {
@@ -59,7 +67,7 @@ namespace HealthCalculator.Tests
                 Assert.Throws(Is.TypeOf<ArgumentException>()
                     .And.Message.EqualTo("Invalid value! The height you entered is too high!"),
                     delegate {
-                        cal.countBMI(350, 120);
+                        cal.countBMI(301, 120);
                     });
             }
 
@@ -69,7 +77,7 @@ namespace HealthCalculator.Tests
                 Assert.Throws(Is.TypeOf<ArgumentException>()
                     .And.Message.EqualTo("Invalid value! The weight you entered is too high!"),
                     delegate {
-                        cal.countBMI(120, 350);
+                        cal.countBMI(120, 301);
                     });
             }
 
@@ -129,6 +137,24 @@ namespace HealthCalculator.Tests
                 Assert.AreEqual(BMR, BMRResult);
             }
 
+            [TestCase(120, 145, 55, 704.3)]
+            [TestCase(37, 300, 60, 2131.36)]
+            [TestCase(76, 180, 300, 3587.08)]
+            public void countBMRWoman_LimitValues_Calculated(int age, double height, double weight, double BMRResult)
+            {
+                double BMR = cal.countBMRWoman(age, height, weight);
+                Assert.AreEqual(BMR, BMRResult);
+            }
+
+            [TestCase(120, 145, 55, 870.3)]
+            [TestCase(37, 300, 60, 2297.36)]
+            [TestCase(76, 180, 300, 3753.08)]
+            public void countBMRMan_LimitValues_Calculated(int age, double height, double weight, double BMRResult)
+            {
+                double BMR = cal.countBMRMan(age, height, weight);
+                Assert.AreEqual(BMR, BMRResult);
+            }
+
             [Test]
             public void countBMR_AgetLessThanOrEqualZero_Exception()
             {
@@ -179,9 +205,9 @@ namespace HealthCalculator.Tests
             public void countBMR_AgeTooHigh_Exception()
             {
                 var ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMRWoman(150, 120, 120));
+                    () => cal.countBMRWoman(121, 120, 120));
                 ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMRMan(150, 120, 120));
+                    () => cal.countBMRMan(121, 120, 120));
 
                 Assert.That(ex.Message == "Invalid value! The age you entered is too high!");
             }
@@ -190,9 +216,9 @@ namespace HealthCalculator.Tests
             public void countBMR_HeightTooHigh_Exception()
             {
                 var ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMRWoman(50, 350, 120));
+                    () => cal.countBMRWoman(50, 301, 120));
                 ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMRMan(50, 350, 120));
+                    () => cal.countBMRMan(50, 301, 120));
 
                 Assert.That(ex.Message == "Invalid value! The height you entered is too high!");
             }
@@ -201,9 +227,9 @@ namespace HealthCalculator.Tests
             public void countBMR_WeightTooHigh_Exception()
             {
                 var ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMRWoman(50, 120, 350));
+                    () => cal.countBMRWoman(50, 120, 301));
                 ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMRMan(50, 120, 350));
+                    () => cal.countBMRMan(50, 120, 301));
 
                 Assert.That(ex.Message == "Invalid value! The weight you entered is too high!");
             }
