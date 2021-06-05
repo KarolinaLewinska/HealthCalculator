@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,13 +40,32 @@ namespace HealthCalculator.Tests
                 Assert.AreEqual(BMI, BMIResult);
             }
 
+            public static string[] BMIDataTxtFile()
+            {
+                var path = "C:\\Users\\justy\\OneDrive\\Pulpit\\BMIData.txt";
+                return File.ReadAllLines(path).ToArray();
+            }
+
+            [Test, TestCaseSource("BMIDataTxtFile")]
+            public void countBMI_testDataTxt_Calculated(string dataLine)
+            {
+                string[] data = dataLine.Split(' ');
+                double height = Convert.ToDouble(data[0]);
+                double weight = Convert.ToDouble(data[1]);
+                double BMIResult = Convert.ToDouble(data[2]);
+
+                double BMI = cal.countBMI(height, weight);
+
+                Assert.AreEqual(BMI, BMIResult);
+            }
+
             [Test]
             public void countBMI_HeightLessThanOrEqualZero_Exception()
             {
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMI(0, 120));
-                    ex = Assert.Throws<ArgumentException>(
-                    () => cal.countBMI(-50, 120));
+                ex = Assert.Throws<ArgumentException>(
+                () => cal.countBMI(-50, 120));
 
                 Assert.That(ex.Message == "Invalid value! Height must be greater than zero!");
             }
@@ -66,7 +86,8 @@ namespace HealthCalculator.Tests
             {
                 Assert.Throws(Is.TypeOf<ArgumentException>()
                     .And.Message.EqualTo("Invalid value! The height you entered is too high!"),
-                    delegate {
+                    delegate
+                    {
                         cal.countBMI(301, 120);
                     });
             }
@@ -76,7 +97,8 @@ namespace HealthCalculator.Tests
             {
                 Assert.Throws(Is.TypeOf<ArgumentException>()
                     .And.Message.EqualTo("Invalid value! The weight you entered is too high!"),
-                    delegate {
+                    delegate
+                    {
                         cal.countBMI(120, 301);
                     });
             }
@@ -237,7 +259,7 @@ namespace HealthCalculator.Tests
             [Test]
             public void countBMR_HeightDoubleWeightDouble_Calculated()
             {
-                double BMRW = cal.countBMRWoman(23,150.5, 50.5);
+                double BMRW = cal.countBMRWoman(23, 150.5, 50.5);
                 Assert.AreEqual(BMRW, 1170.95);
                 double BMRM = cal.countBMRMan(23, 150.5, 50.5);
                 Assert.AreEqual(BMRM, 1336.95);
