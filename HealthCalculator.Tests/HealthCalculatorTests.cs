@@ -176,6 +176,39 @@ namespace HealthCalculator.Tests
                 double BMR = cal.countBMRMan(age, height, weight);
                 Assert.AreEqual(BMR, BMRResult);
             }
+            public static string[] BMRDataCSVFile()
+            {
+                var path = "C:\\Users\\justy\\OneDrive\\Pulpit\\BMRData.csv";
+                return File.ReadAllLines(path).ToArray();
+            }
+
+            [Test, TestCaseSource("BMRDataCSVFile")]
+            public void countBMRWoman_testDataCSV_Calculated(string dataLine)
+            {
+                string[] data = dataLine.Split(';');
+                int age = Convert.ToInt32(data[0]);
+                double height = Convert.ToDouble(data[1]);
+                double weight = Convert.ToDouble(data[2]);
+                double BMRWomanResult = Convert.ToDouble(data[3]);
+
+                double BMR = cal.countBMRWoman(age, height, weight);
+
+                Assert.AreEqual(BMR, BMRWomanResult);
+            }
+
+            [Test, TestCaseSource("BMRDataCSVFile")]
+            public void countBMRMan_testDataCSV_Calculated(string dataLine)
+            {
+                string[] data = dataLine.Split(';');
+                int age = Convert.ToInt32(data[0]);
+                double height = Convert.ToDouble(data[1]);
+                double weight = Convert.ToDouble(data[2]);
+                double BMRManResult = Convert.ToDouble(data[4]);
+
+                double BMR = cal.countBMRMan(age, height, weight);
+
+                Assert.AreEqual(BMR, BMRManResult);
+            }
 
             [Test]
             public void countBMR_AgetLessThanOrEqualZero_Exception()
