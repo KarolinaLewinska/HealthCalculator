@@ -231,7 +231,6 @@ namespace HealthCalculator.Tests
                     () => cal.countBMRWoman(0, 120, 120));
 
                 Assert.That(ex.Message == "Invalid value! Age must be greater than zero!");
-
             }
 
             [Test]
@@ -241,7 +240,6 @@ namespace HealthCalculator.Tests
                     () => cal.countBMRWoman(-50, 120, 120));
 
                 Assert.That(ex.Message == "Invalid value! Age must be greater than zero!");
-
             }
 
             [Test]
@@ -251,7 +249,6 @@ namespace HealthCalculator.Tests
                     () => cal.countBMRMan(0, 120, 120));
 
                 Assert.That(ex.Message == "Invalid value! Age must be greater than zero!");
-
             }
 
             [Test]
@@ -261,11 +258,10 @@ namespace HealthCalculator.Tests
                     () => cal.countBMRMan(-50, 120, 120));
 
                 Assert.That(ex.Message == "Invalid value! Age must be greater than zero!");
-
             }
 
             [Test]
-            public void countBMR_HeightEqualZero_Exception()
+            public void countBMRWoman_HeightEqualZero_Exception()
             {
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMRWoman(20, 0, 120));
