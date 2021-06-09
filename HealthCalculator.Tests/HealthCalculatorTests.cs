@@ -144,7 +144,7 @@ namespace HealthCalculator.Tests
 
             [TestCase(145, 55, "You're overweight! Take care of Your health!")]
             [TestCase(170, 72.25, "You're overweight! Take care of Your health!")]
-            [TestCase(170, 60, "Congratulations! You're weight is proper!")]
+            [TestCase(170, 60, "Congratulations! Your weight is proper!")]
             [TestCase(10, 60, "You have extreme obesity. Immediately contact with doctor!")]
             [TestCase(180, 55, "You're skinny! Contact with doctor!")]
             [TestCase(180, 100, "You have I class of obesity! Contact with doctor!")]
