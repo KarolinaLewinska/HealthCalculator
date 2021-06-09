@@ -32,7 +32,7 @@ namespace HealthCalculator
             else if (BMI >= 17 && BMI < 18.5)
                 resultText = "You're underweight! Take care of Your health!";
             else if (BMI >= 18.5 && BMI < 25)
-                resultText = "Congratulations! You're weight is proper!";
+                resultText = "Congratulations! Your weight is proper!";
             else if (BMI >= 25 && BMI < 30)
                 resultText = "You're overweight! Take care of Your health!";
             else if (BMI >= 30 && BMI < 35)
