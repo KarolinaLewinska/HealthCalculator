@@ -21,6 +21,12 @@ namespace HealthCalculator.Tests
                 cal = new HealthCalculator();
             }
 
+            [OneTimeTearDown]
+            public void tearDown()
+            {
+                cal = null;
+            }
+
             [TestCase(145, 55, 26.15)]
             [TestCase(170, 60, 20.76)]
             [TestCase(120, 20, 13.88)]
@@ -42,7 +48,7 @@ namespace HealthCalculator.Tests
 
             public static string[] BMIDataTxtFile()
             {
-                var path = "C:\\Users\\justy\\OneDrive\\Pulpit\\BMIData.txt";
+                var path = "C:\\Users\\lewin\\OneDrive\\Pulpit\\BMIData.txt";
                 return File.ReadAllLines(path).ToArray();
             }
 
@@ -55,7 +61,6 @@ namespace HealthCalculator.Tests
                 double BMIResult = Convert.ToDouble(data[2]);
 
                 double BMI = cal.countBMI(height, weight);
-
                 Assert.AreEqual(BMI, BMIResult);
             }
 
@@ -99,7 +104,7 @@ namespace HealthCalculator.Tests
             public void countBMI_HeightTooHigh_Exception()
             {
                 Assert.Throws(Is.TypeOf<ArgumentException>()
-                    .And.Message.EqualTo("Invalid value! The height you entered is too high!"),
+                    .And.Message.EqualTo("Invalid value! The height is too high!"),
                     delegate
                     {
                         cal.countBMI(301, 120);
@@ -110,7 +115,7 @@ namespace HealthCalculator.Tests
             public void countBMI_WeightTooHigh_Exception()
             {
                 Assert.Throws(Is.TypeOf<ArgumentException>()
-                    .And.Message.EqualTo("Invalid value! The weight you entered is too high!"),
+                    .And.Message.EqualTo("Invalid value! The weight is too high!"),
                     delegate
                     {
                         cal.countBMI(120, 301);
@@ -123,18 +128,21 @@ namespace HealthCalculator.Tests
                 double BMI = cal.countBMI(150.5, 50.5);
                 Assert.AreEqual(BMI, 22.29);
             }
+
             [Test]
             public void countBMI_HeightIntWeightInt_Calculated()
             {
                 double BMI = cal.countBMI(145, 55);
                 Assert.AreEqual(BMI, 26.15);
             }
+
             [Test]
             public void countBMI_HeightIntWeightDouble_Calculated()
             {
                 double BMI = cal.countBMI(150, 50.5);
                 Assert.AreEqual(BMI, 22.44);
             }
+
             [Test]
             public void countBMI_HeightDoubleWeightInt_Calculated()
             {
@@ -142,12 +150,12 @@ namespace HealthCalculator.Tests
                 Assert.AreEqual(BMI, 22.07);
             }
 
-            [TestCase(145, 55, "You're overweight! Take care of Your health!")]
-            [TestCase(170, 72.25, "You're overweight! Take care of Your health!")]
-            [TestCase(170, 60, "Congratulations! Your weight is proper!")]
+            [TestCase(145, 55, "You're overweight! Take care of your health!")]
+            [TestCase(170, 72.25, "You're overweight! Take care of your health!")]
+            [TestCase(170, 60, "Congratulations! Your weight is good!")]
             [TestCase(10, 60, "You have extreme obesity. Immediately contact with doctor!")]
-            [TestCase(180, 55, "You're skinny! Contact with doctor!")]
-            [TestCase(180, 100, "You have I class of obesity! Contact with doctor!")]
+            [TestCase(180, 55, "You're skinny! Contact with the doctor!")]
+            [TestCase(180, 100, "You have a I class of obesity! Contact with the doctor!")]
             public void countBMI_DifferentTips_Display(double height, double weight, String BMIResultText)
             {
                 double BMI = cal.countBMI(height, weight);
@@ -206,7 +214,6 @@ namespace HealthCalculator.Tests
                 double BMRWomanResult = Convert.ToDouble(data[3]);
 
                 double BMR = cal.countBMRWoman(age, height, weight);
-
                 Assert.AreEqual(BMR, BMRWomanResult);
             }
 
@@ -220,7 +227,6 @@ namespace HealthCalculator.Tests
                 double BMRManResult = Convert.ToDouble(data[4]);
 
                 double BMR = cal.countBMRMan(age, height, weight);
-
                 Assert.AreEqual(BMR, BMRManResult);
             }
 
@@ -338,7 +344,7 @@ namespace HealthCalculator.Tests
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMRWoman(121, 120, 120));
 
-                Assert.That(ex.Message == "Invalid value! The age you entered is too high!");
+                Assert.That(ex.Message == "Invalid value! The age is too high!");
             }
 
             [Test]
@@ -347,7 +353,7 @@ namespace HealthCalculator.Tests
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMRMan(121, 120, 120));
 
-                Assert.That(ex.Message == "Invalid value! The age you entered is too high!");
+                Assert.That(ex.Message == "Invalid value! The age is too high!");
             }
 
             [Test]
@@ -356,7 +362,7 @@ namespace HealthCalculator.Tests
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMRWoman(50, 301, 120));
 
-                Assert.That(ex.Message == "Invalid value! The height you entered is too high!");
+                Assert.That(ex.Message == "Invalid value! The height is too high!");
             }
 
             [Test]
@@ -365,7 +371,7 @@ namespace HealthCalculator.Tests
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMRMan(50, 301, 120));
 
-                Assert.That(ex.Message == "Invalid value! The height you entered is too high!");
+                Assert.That(ex.Message == "Invalid value! The height is too high!");
             }
 
             [Test]
@@ -374,7 +380,7 @@ namespace HealthCalculator.Tests
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMRWoman(50, 120, 301));
 
-                Assert.That(ex.Message == "Invalid value! The weight you entered is too high!");
+                Assert.That(ex.Message == "Invalid value! The weight is too high!");
             }
 
             [Test]
@@ -383,7 +389,7 @@ namespace HealthCalculator.Tests
                 var ex = Assert.Throws<ArgumentException>(
                     () => cal.countBMRMan(50, 120, 301));
 
-                Assert.That(ex.Message == "Invalid value! The weight you entered is too high!");
+                Assert.That(ex.Message == "Invalid value! The weight is too high!");
             }
 
             [Test]
@@ -394,6 +400,7 @@ namespace HealthCalculator.Tests
                 double BMRM = cal.countBMRMan(23, 150.5, 50.5);
                 Assert.AreEqual(BMRM, 1336.95);
             }
+
             [Test]
             public void countBMR_HeightIntWeightInt_Calculated()
             {
@@ -402,6 +409,7 @@ namespace HealthCalculator.Tests
                 double BMRM = cal.countBMRMan(23, 145, 55);
                 Assert.AreEqual(BMRM, 1347.54);
             }
+
             [Test]
             public void countBMR_HeightIntWeightDouble_Calculated()
             {
@@ -410,6 +418,7 @@ namespace HealthCalculator.Tests
                 double BMRM = cal.countBMRMan(23, 150, 50.5);
                 Assert.AreEqual(BMRM, 1333.83);
             }
+
             [Test]
             public void countBMR_HeightDoubleWeightInt_Calculated()
             {
@@ -417,12 +426,6 @@ namespace HealthCalculator.Tests
                 Assert.AreEqual(BMRW, 1165.96);
                 double BMRM = cal.countBMRMan(23, 150.5, 50);
                 Assert.AreEqual(BMRM, 1331.96);
-            }
-
-            [OneTimeTearDown]
-            public void tearDown()
-            {
-                cal = null;
             }
         }
     }

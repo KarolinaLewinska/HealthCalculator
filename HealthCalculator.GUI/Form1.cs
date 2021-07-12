@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HealthCalculator.GUI
@@ -50,7 +43,7 @@ namespace HealthCalculator.GUI
             }
             catch (FormatException ex)
             {
-                MessageBox.Show("Invalid value! No data has been entered or the data entered are not numbers!", "Error: ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid value! No data has been entered or the data is not numbers!", "Error: ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
