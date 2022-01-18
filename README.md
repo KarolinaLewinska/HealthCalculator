@@ -1,5 +1,5 @@
 # BMI & BMR Calculator
-The other co-author: [Justyna Gapys](https://github.com/justynagapys)<br />
+The other co-author: [Justyna Gapys](https://github.com/justynagapys).<br />
 - Library: **NUnit**,<br/><br/>
 
 ## Interfaces
