@@ -1,6 +1,6 @@
 # BMI & BMR Calculator
 Co-author: [Justyna Gapys](https://github.com/justynagapys).<br />
-- Library: **NUnit**,<br/><br/>
+Unit tests were made with the usage of NUnit libary.<br/><br/>
 
 ## Interfaces
 ![Interface](https://github.com/KarolinaLewinska/HealthCalculator/blob/master/ReadmeIMG/interface.PNG)
